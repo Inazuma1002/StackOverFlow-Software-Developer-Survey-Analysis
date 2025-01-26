@@ -72,36 +72,34 @@ try:
 except Exception as e:
     print(f"Error loading data: {e}")
 
-def show_explore_page():
+def show_explore_page(df):
     st.title("Explore Software Engineer Salaries")
-    st.write(
-        """ ### Stack Overflow Developer Survey 2024"""
-    )
-    data = df['Country'].value_counts()
+    
+    st.write("### Stack Overflow Developer Survey 2024")
 
+    # Check if required columns are present
+    required_columns = {'Country', 'Salary', 'YearsCodePro'}
+    if not required_columns.issubset(df.columns):
+        st.error(f"The dataset must contain the following columns: {', '.join(required_columns)}")
+        return
+
+    # Country-wise data visualization
+    st.write("#### Number of Responses by Country")
+    country_data = df['Country'].value_counts()
+    
     fig1, ax1 = plt.subplots()
-    ax1.pie(data, labels=data.index, autopct="%1.2f%%", shadow=True, startangle=200)
-    ax1.axis("equal")  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-    st.write("""#### Number of Data from different countries""")
+    ax1.pie(country_data, labels=country_data.index, autopct="%1.2f%%", shadow=True, startangle=200)
+    ax1.axis("equal")  # Equal aspect ratio ensures the pie is drawn as a circle.
     st.pyplot(fig1)
 
-    st.write(
-        """
-    #### Mean Salary Based On Country
-    """
-    )
+    # Mean salary by country
+    st.write("#### Mean Salary by Country")
+    salary_by_country = df.groupby('Country')['Salary'].mean().sort_values()
+    st.bar_chart(salary_by_country, use_container_width=True)
 
-    data = df.groupby(['Country'])['Salary'].mean().sort_values()
-    st.bar_chart(data)
+    # Mean salary by experience
+    st.write("#### Mean Salary by Years of Professional Coding Experience")
+    salary_by_experience = df.groupby('YearsCodePro')['Salary'].mean().sort_values()
+    st.line_chart(salary_by_experience, use_container_width=True)
 
-    st.write(
-        """
-    #### Mean Salary Based On Experience
-    """
-    )
-
-    data = df.groupby(['YearsCodePro'])['Salary'].mean().sort_values()
-    st.line_chart(data)
-
-    
+    st.success("Analysis complete!")
