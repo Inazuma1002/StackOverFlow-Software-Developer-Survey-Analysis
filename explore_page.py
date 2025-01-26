@@ -75,7 +75,7 @@ except Exception as e:
 def show_explore_page(df):
     st.title("Explore Software Engineer Salaries")
     st.write("### Stack Overflow Developer Survey 2024")
-    st.write(df.columns.tolist())
+    #st.write(df.columns.tolist())
     # Check if required columns are present
     required_columns = {'Country', 'Salary', 'YearsCodePro'}
     if not required_columns.issubset(df.columns):
