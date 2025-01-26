@@ -76,11 +76,6 @@ def show_explore_page(df):
     st.title("Explore Software Engineer Salaries")
     st.write("### Stack Overflow Developer Survey 2024")
     
-    url = 'https://drive.google.com/uc?export=download&id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6'
-    df = pd.read_csv(url)
-    
-    st.write(df.columns.tolist())
-    
     # Check if required columns are present
     required_columns = {'Country', 'Salary', 'YearsCodePro'}
     if not required_columns.issubset(df.columns):
