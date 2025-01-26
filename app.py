@@ -4,9 +4,10 @@ from predict_page import show_predict_page
 from explore_page import show_explore_page
 
 def load_data():
-    # Load dataset
-    url = "https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download"
+    url = 'https://drive.google.com/uc?export=download&id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6'
+
     df = pd.read_csv(url)
+
 
     # Check for 'ConvertedCompYearly' and rename it to 'Salary'
     if 'ConvertedCompYearly' in df.columns:
@@ -40,12 +41,10 @@ def load_data():
 
     # Drop unnecessary columns
     df.drop(['Employment'], axis=1, inplace=True)
-    st.write(df.columns.tolist())
     return df
 
 page = st.sidebar.selectbox("Explore or Predict", ("Explore", "Predict"))
 df = load_data()
-st.write(df.columns.tolist())
 if page == 'Predict':
     show_predict_page()
 else:
