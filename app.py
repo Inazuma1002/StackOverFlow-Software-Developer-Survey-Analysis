@@ -8,11 +8,19 @@ def load_data():
     url = "https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download"
     df = pd.read_csv(url)
 
-    # Rename 'ConvertedCompYearly' to 'Salary'
-    df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
+    # Check for 'ConvertedCompYearly' and rename it to 'Salary'
+    if 'ConvertedCompYearly' in df.columns:
+        df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
+    else:
+        print("ConvertedCompYearly column not found!")
 
-    # Filter rows where 'Salary' is not null
-    df = df[df['Salary'].notnull()]
+    # Confirm that 'Salary' is now a column
+    if 'Salary' in df.columns:
+        # Filter rows where 'Salary' is not null
+        df = df[df['Salary'].notnull()]
+    else:
+        print("Salary column not found!")
+        return pd.DataFrame()  # Return an empty DataFrame if Salary column doesn't exist
 
     # Group smaller countries into 'Others'
     country_counts = df['Country'].value_counts()
