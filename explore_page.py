@@ -35,7 +35,7 @@ def load_data():
     # Load the dataset from Google Drive
     df = pd.read_csv('https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download')
   
-     Rename the 'ConvertedCompYearly' column to 'Salary'
+     # Rename the 'ConvertedCompYearly' column to 'Salary'
     if 'ConvertedCompYearly' in df.columns:
         df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
     else:
