@@ -45,6 +45,7 @@ def load_data():
 
 page = st.sidebar.selectbox("Explore or Predict", ("Explore", "Predict"))
 df = load_data()
+st.write(df.columns.tolist())
 if page == 'Predict':
     show_predict_page()
 else:
