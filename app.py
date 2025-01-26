@@ -41,7 +41,7 @@ def load_data():
     # Drop unnecessary columns
     df.drop(['Employment'], axis=1, inplace=True)
 
-    return df
+    return df[['Country', 'EdLevel', 'YearsCodePro', 'Employment', 'Salary']]
 
 page = st.sidebar.selectbox("Explore or Predict", ("Explore", "Predict"))
 df = load_data()
