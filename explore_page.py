@@ -30,7 +30,7 @@ def correct_Education(x):
     else:
         return 'Less than a Bachelor'
 
-@st.cache
+@st.cache_data
 def load_data():
     df = pd.read_csv('https://drive.google.com/file/d/1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6/view?usp=sharing')
     df = df.rename({'ConvertedCompYearly':'Salary'}, axis = 1)
