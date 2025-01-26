@@ -32,7 +32,7 @@ def correct_Education(x):
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv('https://drive.google.com/file/d/1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6/view?usp=sharing')
+    df = pd.read_csv('https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download')
     df = df.rename({'ConvertedCompYearly':'Salary'}, axis = 1)
     df = df[df['Salary'].notnull()]
     types = df['Country'].value_counts()
