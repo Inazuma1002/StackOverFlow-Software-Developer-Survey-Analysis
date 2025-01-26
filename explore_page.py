@@ -76,13 +76,13 @@ def show_explore_page(df):
     st.title("Explore Software Engineer Salaries")
     
     st.write("### Stack Overflow Developer Survey 2024")
-
+    st.write(df.columns.tolist())
     # Check if required columns are present
     required_columns = {'Country', 'Salary', 'YearsCodePro'}
     if not required_columns.issubset(df.columns):
        st.error(f"The dataset must contain the following columns: {', '.join(required_columns)}")
        return
-
+    
     # Country-wise data visualization
     st.write("#### Number of Responses by Country")
     country_data = df['Country'].value_counts()
