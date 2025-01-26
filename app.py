@@ -9,7 +9,7 @@ def load_data():
     
     
     # Filter rows where 'Salary' is not null
-    df = df[df['ConvertedCompYearly'].notnull()]
+    df = df[df['Salary'].notnull()]
 
     # Categorize 'Country' based on a cutoff for value counts
     types = df['Country'].value_counts()
@@ -18,7 +18,7 @@ def load_data():
     df['Country'] = df['Country'].apply(lambda x: x if x in categories else 'Others')
 
     # Select relevant columns
-    df = df[['Country', 'EdLevel', 'YearsCodePro', 'Employment', 'ConvertedCompYearly']]
+    df = df[['Country', 'EdLevel', 'YearsCodePro', 'Employment', 'Salary']]
 
     # Drop rows with any missing values
     df.dropna(inplace=True)
