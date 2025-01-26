@@ -34,8 +34,8 @@ def correct_Education(x):
 def load_data():
     # Load the dataset from Google Drive
     df = pd.read_csv('https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download')
-    
-    # Rename the 'ConvertedCompYearly' column to 'Salary'
+  
+     Rename the 'ConvertedCompYearly' column to 'Salary'
     if 'ConvertedCompYearly' in df.columns:
         df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
     else:
@@ -67,7 +67,7 @@ def load_data():
 
 # Load data to use
 try:
-    df = load_data()
+    df1 = load_data()
     print("Data loaded successfully!")
 except Exception as e:
     print(f"Error loading data: {e}")
@@ -75,7 +75,12 @@ except Exception as e:
 def show_explore_page(df):
     st.title("Explore Software Engineer Salaries")
     st.write("### Stack Overflow Developer Survey 2024")
-    #st.write(df.columns.tolist())
+    
+    url = 'https://drive.google.com/uc?export=download&id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6'
+    df = pd.read_csv(url)
+    
+    st.write(df.columns.tolist())
+    
     # Check if required columns are present
     required_columns = {'Country', 'Salary', 'YearsCodePro'}
     if not required_columns.issubset(df.columns):
