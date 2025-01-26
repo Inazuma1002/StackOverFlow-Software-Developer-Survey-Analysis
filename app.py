@@ -40,12 +40,11 @@ def load_data():
 
     # Drop unnecessary columns
     df.drop(['Employment'], axis=1, inplace=True)
-
-    return df[['Country', 'EdLevel', 'YearsCodePro', 'Employment', 'Salary']]
+    st.write(df.columns.tolist())
+    return df
 
 page = st.sidebar.selectbox("Explore or Predict", ("Explore", "Predict"))
 df = load_data()
-st.write(df.columns.tolist())
 if page == 'Predict':
     show_predict_page()
 else:
