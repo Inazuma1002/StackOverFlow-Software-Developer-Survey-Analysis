@@ -4,31 +4,40 @@ from predict_page import show_predict_page
 from explore_page import show_explore_page
 
 def load_data():
-    # Load the dataset from Google Drive
-    df = pd.read_csv('https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download')
-    
-    
+    # Load dataset
+    url = "https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download"
+    df = pd.read_csv(url)
+
+    # Debug: Print column names to check if 'ConvertedCompYearly' exists
+    print("Columns in dataset:", df.columns)
+
+    # Handle missing 'ConvertedCompYearly' column
+    if 'ConvertedCompYearly' in df.columns:
+        df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
+    else:
+        raise KeyError("The column 'ConvertedCompYearly' is missing in the dataset.")
+
     # Filter rows where 'Salary' is not null
     df = df[df['Salary'].notnull()]
 
-    # Categorize 'Country' based on a cutoff for value counts
-    types = df['Country'].value_counts()
+    # Group smaller countries into 'Others'
+    country_counts = df['Country'].value_counts()
     cutoff = 400
-    categories = divide_types(types, cutoff)  # Ensure divide_types is defined correctly
-    df['Country'] = df['Country'].apply(lambda x: x if x in categories else 'Others')
+    countries_to_keep = country_counts[country_counts > cutoff].index
+    df['Country'] = df['Country'].apply(lambda x: x if x in countries_to_keep else 'Others')
 
     # Select relevant columns
     df = df[['Country', 'EdLevel', 'YearsCodePro', 'Employment', 'Salary']]
 
-    # Drop rows with any missing values
+    # Drop rows with missing values
     df.dropna(inplace=True)
 
-    # Apply transformations to 'YearsCodePro' and 'EdLevel'
-    df['YearsCodePro'] = df['YearsCodePro'].apply(correct_exp)  # Ensure correct_exp is defined
-    df['EdLevel'] = df['EdLevel'].apply(correct_Education)  # Ensure correct_Education is defined
+    # Correct experience and education fields
+    df['YearsCodePro'] = df['YearsCodePro'].apply(correct_exp)
+    df['EdLevel'] = df['EdLevel'].apply(correct_Education)
 
-    # Drop the 'Employment' column (correct method to drop in-place)
-    df = df.drop(['Employment'], axis=1)
+    # Drop unnecessary columns
+    df.drop(['Employment'], axis=1, inplace=True)
 
     return df
 
