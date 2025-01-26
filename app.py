@@ -5,7 +5,7 @@ from explore_page import show_explore_page
 
 def load_data():
     # Load dataset
-    url = "https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download"
+    url = "cleaned_data.csv"
     df = pd.read_csv(url)
 
     # Check for 'ConvertedCompYearly' and rename it to 'Salary'
