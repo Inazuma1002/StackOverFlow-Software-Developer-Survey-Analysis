@@ -67,7 +67,7 @@ def load_data():
 
 # Load data to use
 try:
-    df1 = load_data()
+    df = load_data()
     print("Data loaded successfully!")
 except Exception as e:
     print(f"Error loading data: {e}")
