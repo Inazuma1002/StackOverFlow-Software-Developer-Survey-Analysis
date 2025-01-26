@@ -8,14 +8,8 @@ def load_data():
     url = "https://drive.google.com/uc?id=1ebNIs3jPNJpz1jOF2VBusHU2BsUneVU6&export=download"
     df = pd.read_csv(url)
 
-    # Debug: Print column names to check if 'ConvertedCompYearly' exists
-    print("Columns in dataset:", df.columns)
-
-    # Handle missing 'ConvertedCompYearly' column
-    if 'ConvertedCompYearly' in df.columns:
-        df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
-    else:
-        raise KeyError("The column 'ConvertedCompYearly' is missing in the dataset.")
+    # Rename 'ConvertedCompYearly' to 'Salary'
+    df = df.rename({'ConvertedCompYearly': 'Salary'}, axis=1)
 
     # Filter rows where 'Salary' is not null
     df = df[df['Salary'].notnull()]
